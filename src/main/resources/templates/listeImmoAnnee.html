@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>tableau amortissement</title>
+    <link th:href="@{/assets/css/main.css}" rel="stylesheet" />
+       
+        <link th:href="@{/assets/sass/a.scss}" rel="stylesheet" />
+        
+            <link th:href="@{/assets/css/iz.css}" rel="stylesheet" />
+    
+        <noscript><link th:href="@{/assets/css/noscript.css}" rel="stylesheet" /></noscript>
+  
+        <script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+    </head>
+    <body class="is-preload">
+
+        <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <a href="index.html" class="logo">Massively</a>
+            </header>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul class="links">
+   <li class="active"><a href="init?page_id=1">Voir liste immo</a></li>
+                     <li class="active"><a href="formrecherche">recherche</a></li>
+                      <li class="active"><a href="formajout">Ajout immo</a></li>
+                       <li class="active"><a href="formrechercheannee">recherche par annee</a></li>
+                </ul>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                </ul>
+            </nav>
+            <div id="main">
+
+                <!-- Post -->
+                <section class="post">
+                  <header class="major">
+             
+                        <h1>Immo</h1><br />
+                          <div class="col-12" id="ammortissement">
+                 <form action="pdfannee"  method="POST">
+                                                <input type="hidden" name="annee"  th:value="${annee.intValue}">
+                                                <input type="submit" value="Exporter en PDF">
+                          </form>
+                         
+                        <h3>tableau par année</h3>
+                          
+                        <table class="table align-items-center mb-0" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                     <th 
+                        				class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" id="tab"
+                                        >
+                                       Article
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                        >
+                                        Date Début
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                        >
+                                        Date Fin
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                        >
+                                        Antérieure
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                        >
+                                        Exercice
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                        >
+                                        Cumul
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                        >
+                                        Valeur Net Comptable
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                  <th:block th:each="ammo : ${listeImmoAnnee}">
+                                    <tr>
+                                         <td>
+                                            <div th:text="${ammo.getArticle()}" class="d-flex px-2 py-1">
+                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div  th:text="${#dates.format(ammo.getDateDebut, 'dd-MMM-yyyy')}" class="d-flex px-2 py-1">
+                                           
+                                            
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div th:text="${#dates.format(ammo.getDateFin, 'dd-MMM-yyyy')}" class="d-flex px-2 py-1">
+                                               
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div th:text=" ${#numbers.formatDecimal(ammo.getAnterieure,3,2,'POINT')}" class="d-flex px-2 py-1">
+
+                                               
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div th:text="${#numbers.formatDecimal(ammo.getExercice,3,2,'POINT')}" class="d-flex px-2 py-1">
+												
+                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div th:text="${#numbers.formatDecimal(ammo.getCumul,3,2,'POINT')}" class="d-flex px-2 py-1">
+
+                                             
+                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div th:text="${#numbers.formatDecimal(ammo.getVnc,3,2,'POINT')}" class="d-flex px-2 py-1">
+
+                                                
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                              </th:block>
+                            </tbody>
+                        </table>
+                        
+                            </div>
+                        <div th:text="|Total Exercice : ${#numbers.formatDecimal(totalExercice,3,2,'POINT')} Ariary|" class="col-md-12 text-right mb-3">
+                               
+
+                        </div>
+                        
+                           
+                </section>
+                
+                
+              </header>
+
+            </div>
+            <div id="copyright">
+                <ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+            </div>
+        </div>
+    
+		<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+     
+		<script type="text/javascript" th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/browser.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/breakpoints.min.js}"></script>
+     
+		<script type="text/javascript" th:src="@{/assets/js/util.js}"></script>
+        
+		<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+          
+     
+
+    </body>
+</html>

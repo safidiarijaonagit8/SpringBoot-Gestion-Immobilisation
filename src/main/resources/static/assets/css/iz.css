@@ -1,0 +1,45 @@
+input[type="text"] {
+    width: 400px;
+    margin-left: 20px;
+}
+#text1{
+    width: 400px;
+    margin-left: 20px;
+}
+label{
+  display: inline-block;
+  width: 200px;
+ 
+  margin-left: 20px;
+  
+  }
+  #select1{
+  display: inline-block;
+  width: 400px;
+ 
+  margin-left: 20px;
+  
+  }
+  #label1{
+  display: inline-block;
+  width: 200px;
+ }
+
+#tab{
+	width: 400px;
+}
+input[type="date"] {
+    width: 400px;
+    margin-left: 20px;
+}
+input[type="number"] {
+    width: 400px;
+    margin-left: 20px;
+}
+
+#select{
+    width: 400px;
+    height: 40px;
+    margin-left: 20px;
+}
+​

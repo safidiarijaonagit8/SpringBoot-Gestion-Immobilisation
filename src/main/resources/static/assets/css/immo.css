@@ -1,0 +1,27 @@
+#daty{
+    width: 150px;
+}
+.recherche
+{
+    width: 1250px;
+   margin-left: 200px;
+}
+#dateMiseEnService{
+    width: 700px;
+    height: 300px;
+  
+}
+#dureeAmortissement{
+    
+}
+#prixAchat{
+    
+}
+#gauche
+{
+    width: 500px;
+}
+#droite{
+    width: 500px;
+    
+}

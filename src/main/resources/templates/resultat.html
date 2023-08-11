@@ -1,0 +1,159 @@
+<%-- 
+    Document   : listeImmo
+    Created on : 31 mai 2022, 13:10:51
+    Author     : ME
+--%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>resultat Immo</title>
+
+        <link th:href="@{/assets/css/main.css}" rel="stylesheet" />
+             <link th:href="@{/assets/css/immo.css}" rel="stylesheet" />
+       
+        <link th:href="@{/assets/sass/a.scss}" rel="stylesheet" />
+    
+        <noscript><link th:href="@{/assets/css/noscript.css}" rel="stylesheet" /></noscript>
+  
+        <script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+    </head>
+    <body class="is-preload">
+
+        <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <a href="index.html" class="logo">Massively</a>
+            </header>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul class="links">
+
+                <li class="active"><a href="init?page_id=1">Voir liste immo</a></li>
+                     <li class="active"><a href="formrecherche">recherche</a></li>
+                      <li class="active"><a href="formajout">Ajout immo</a></li>
+                       <li class="active"><a href="formrechercheannee">recherche par annee</a></li>
+
+                </ul>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                </ul>
+            </nav>
+
+            <!-- Main -->
+            <div id="main">
+
+                <!-- Post -->
+                <section class="post">
+                    <header class="major">
+                         
+                        <h1>Immo</h1><br />
+                        
+                        <div >
+                         <h3 id="center"> Resultat recherche Immo</h3>
+                    <br>
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>article</th>
+                                    <th>prix achat</th>
+                                    <th>date achat</th>
+                                    <th>date mise en service</th>
+                                    <th>duree amortissement</th>
+                                  
+                                    <th></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <!--  <c:forEach var="immo" items="${resultats}">-->
+
+  <th:block th:each="immo : ${resultats}">
+                                    <tr>
+                                        <td th:text="${immo.getArticle}" class="price-pr">
+                                           
+                                        </td>
+                                        <td th:text="${immo.getPrixAchat}" class="price-pr">
+
+                                           
+                                        </td>
+                                        <td th:text="${immo.getDateAchat}" class="price-pr">
+
+                                            
+                                        </td>
+                                        <td th:text="${immo.getDateMiseEnService}" class="price-pr" id="daty">
+                                           
+                                        </td>
+                                        <td th:text="${immo.getDureeAmortissement}" class="price-pr" id="daty">
+                                            
+                                        </td>
+
+
+                                        <td>
+                                            <form action="tableau"  method="GET">
+                                                <input type="hidden" name="id" value=${immo.getId}>
+                                                <input type="submit" value="Voir tableau">
+                                            </form>
+                                        </td>
+                                    </tr>
+                              <!--  </c:forEach>-->
+
+
+</th:block>
+
+
+
+                            </tbody>
+                        </table>
+
+
+                  
+                </section>
+
+            </div>
+
+            <!-- Footer -->
+
+
+            <!-- Copyright -->
+            <div id="copyright">
+                <ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+            </div>
+
+        </div>
+
+        <!-- Scripts -->
+
+        	<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+     
+		<script type="text/javascript" th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/browser.min.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/breakpoints.min.js}"></script>
+     
+		<script type="text/javascript" th:src="@{/assets/js/util.js}"></script>
+      
+		<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+    </body>
+</html>
+
+
+
+
+
