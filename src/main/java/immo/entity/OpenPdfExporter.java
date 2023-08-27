@@ -43,13 +43,13 @@ public class OpenPdfExporter {
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
         font.setColor(Color.WHITE);
          
-        cell.setPhrase(new Phrase("Date Debut ", font));
+        cell.setPhrase(new Phrase("Date Début ", font));
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Date Fin", font));
         table.addCell(cell);
         
-        cell.setPhrase(new Phrase("Anterieure", font));
+        cell.setPhrase(new Phrase("Antérieure", font));
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Exercice", font));
@@ -73,13 +73,13 @@ public class OpenPdfExporter {
         cell.setPhrase(new Phrase("Article ", font));
         table.addCell(cell);
          
-        cell.setPhrase(new Phrase("Date Debut", font));
+        cell.setPhrase(new Phrase("Date Début", font));
         table.addCell(cell);
         
         cell.setPhrase(new Phrase("Date Fin", font));
         table.addCell(cell);
          
-        cell.setPhrase(new Phrase("Anterieure", font));
+        cell.setPhrase(new Phrase("Antérieure", font));
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Exercice", font));

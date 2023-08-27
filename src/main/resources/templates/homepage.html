@@ -37,17 +37,17 @@
             <nav id="nav">
                 <ul class="links">
                     
-                     <li class="active"><a href="init?page_id=1">Voir liste immo</a></li>
+                     <li class="active"><a href="init?page_id=0">Voir liste immo</a></li>
                      <li class="active"><a href="formrecherche">recherche</a></li>
                       <li class="active"><a href="formajout">Ajout immo</a></li>
                        <li class="active"><a href="formrechercheannee">recherche par année</a></li>
                    
                 </ul>
                 <ul class="icons">
-                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                  
                     <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+         
+                    <li><a href="https://github.com/safidiarijaonagit8" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
                 </ul>
             </nav>
 
@@ -73,7 +73,7 @@
                         </div>
                         <br>
                         <div class="form-floating mb-1"> 
-                            <label  id="label1">Categorie</label>
+                            <label  id="label1">Catégorie</label>
                          <!--   <select class="form-select" name="idcategorie" aria-label="Default select example">
                                 <c:forEach var="cat" items="${listeCat}">
                                     <option value="${cat.getId()}">${cat.getNom()}</option>
@@ -81,7 +81,7 @@
 
                                 </c:forEach>-->
                                 <select class="form-select" id="select1" name="idcategorie" aria-label="Default select example">
-							    <option value="0">select categorie</option>
+							    <option value="0">Choix catégorie</option>
 							    <option th:each="cat : ${listeCat}" th:value="${cat.getId()}" th:text="${cat.getNom()}"></option>
 								</select>
 
@@ -110,20 +110,20 @@
                             <label id="label1" for="floatingInput">type amortissement</label>
                             <select id="select1" class="form-select" name="typeAmortissement" aria-label="Default select example">
                               
-                                <option value="lineaire">lineaire</option>
+                                <option value="lineaire">linéaire</option>
 
                             </select>
                         </div>
                         <br>
                         <div class="form-floating mb-1">  
-                            <label for="floatingInput">duree Amortissement</label>
+                            <label for="floatingInput">durée Amortissement</label>
                             <input type="number" required min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" name="dureeAmortissement" class="form-control" id="floatingInput" placeholder="" >
 
                         </div>
                         <br>
                         <div class="form-floating mb-1">  
-                            <label for="floatingInput">Detenteur</label>
-                            <input type="text" required name="detenteur" class="form-control" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Détenteur</label>
+                            <input type="text" required name="detenteur" class="form-control" id="text1" placeholder="">
 
                         </div>
                         <br>
@@ -144,7 +144,7 @@
 
             <!-- Copyright -->
             <div id="copyright">
-                <ul><li>&copy; immo</li><li>Design: <a href="https://html5up.net">Safidy</a></li></ul>
+                <ul><li>&copy; immo</li><li>Design: <a href="https://html5up.net">HTML 5</a></li></ul>
             </div>
 
         </div>

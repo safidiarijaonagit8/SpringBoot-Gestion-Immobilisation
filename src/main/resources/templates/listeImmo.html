@@ -1,14 +1,14 @@
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>resultat Immo</title>
+        <title>liste Immo</title>
 
         <link th:href="@{/assets/css/main.css}" rel="stylesheet" />
-             <link th:href="@{/assets/css/immo.css}" rel="stylesheet" />
-       <link th:href="@{/assets/css/iz.css}" rel="stylesheet" />
+       
         <link th:href="@{/assets/sass/a.scss}" rel="stylesheet" />
+        
+            <link th:href="@{/assets/css/iz.css}" rel="stylesheet" />
     
         <noscript><link th:href="@{/assets/css/noscript.css}" rel="stylesheet" /></noscript>
   
@@ -20,7 +20,7 @@
         <div id="wrapper">
 
             <!-- Header -->
-             <header id="header">
+            <header id="header">
                 <a href="#" class="logo">Gestion immobilisation</a>
             </header>
 
@@ -28,13 +28,13 @@
             <nav id="nav">
                 <ul class="links">
 
-                <li class="active"><a href="init?page_id=0">Voir liste immo</a></li>
+                  <li class="active"><a href="init?page_id=0">Voir liste immo</a></li>
                      <li class="active"><a href="formrecherche">recherche</a></li>
                       <li class="active"><a href="formajout">Ajout immo</a></li>
                        <li class="active"><a href="formrechercheannee">recherche par année</a></li>
 
                 </ul>
-              <ul class="icons">
+                 <ul class="icons">
                   
                     <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
          
@@ -48,11 +48,17 @@
                 <!-- Post -->
                 <section class="post">
                     <header class="major">
-                         
+                     
                         <h1>Immo</h1><br />
                         
-                        <div >
-                         <h3 id="center"> Resultat recherche Immo</h3>
+                        <div class="recherche">
+       
+                    
+                        
+                            </div>
+                  
+
+                    <h3 id="center"> Liste Immo</h3>
                     <br>
                     <div class="table-main table-responsive">
                         <table class="table">
@@ -63,56 +69,74 @@
                                     <th>date achat</th>
                                     <th>date mise en service</th>
                                     <th>durée amortissement</th>
-                                  
+                                    <th>catégorie</th>
                                     <th></th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
-                              <!--  <c:forEach var="immo" items="${resultats}">-->
+                                <!--<c:forEach var="immo" items="${listeImmo}">-->
+									 <th:block th:each="immo : ${listeImmo}">
 
-  <th:block th:each="immo : ${resultats}">
                                     <tr>
-                                        <td th:text="${immo.getArticle}" class="price-pr">
-                                           
+                                        <td class="price-pr">
+                                              <div th:text="${immo.getArticle()}" class="d-flex px-2 py-1">
                                         </td>
+                                       
+                                       
                                         <td th:text="${immo.getPrixAchat}" class="price-pr">
 
                                            
                                         </td>
-                                        <td th:text="${immo.getDateAchat}" class="price-pr">
+                                          <td>
 
-                                            
-                                        </td>
-                                        <td th:text="${immo.getDateMiseEnService}" class="price-pr" id="daty">
+                                             <div  th:text="${#dates.format(immo.getDateAchat, 'dd-MMM-yyyy')}" class="d-flex px-2 py-1">
                                            
+                                            
+                                            </div>
+                                        </td>
+                                       <td id="daty">
+                                           <div  th:text="${#dates.format(immo.getDateMiseEnService, 'dd-MMM-yyyy')}" class="d-flex px-2 py-1">
+                                           
+                                            
+                                            </div>
                                         </td>
                                         <td th:text="${immo.getDureeAmortissement}" class="price-pr" id="daty">
                                             
                                         </td>
 
+                                      
+                                        <td class="price-pr">
+                                              <div th:text="${immo.getNom()}" class="d-flex px-2 py-1">
+                                        </td>
 
                                         <td>
                                             <form action="tableau"  method="GET">
                                                 <input type="hidden" name="id" th:value="${immo.getId}">
+                                                
                                                 <input type="submit" value="Voir tableau">
                                             </form>
                                         </td>
                                     </tr>
-                              <!--  </c:forEach>-->
+                              </th:block>
 
 
-</th:block>
 
 
 
                             </tbody>
                         </table>
 
-
-                  
+              <ul class="pagination pagination-sm">
+            
+              <li class="page-item"><a class="page-link" href="init?page_id=0">1</a></li>
+                <li class="page-item"><a class="page-link" href="init?page_id=1">2</a></li>
+                <li class="page-item"><a class="page-link" href="init?page_id=2">3</a></li>
+              </ul>
+                        
                 </section>
+  <p>
+     
+  </p>
 
             </div>
 
@@ -127,8 +151,7 @@
         </div>
 
         <!-- Scripts -->
-
-        	<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
      
 		<script type="text/javascript" th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
       

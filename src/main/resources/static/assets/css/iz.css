@@ -3,6 +3,7 @@ input[type="text"] {
     margin-left: 20px;
 }
 #text1{
+	display: inline-block;
     width: 400px;
     margin-left: 20px;
 }

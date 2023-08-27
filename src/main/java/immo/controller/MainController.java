@@ -5,12 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-
+import java.util.Optional;
 import java.io.IOException;
 import java.sql.Date;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import immo.entity.Amortissement;
 import immo.entity.Categorie;
 import immo.entity.Immo;
 import immo.entity.ImmoAnnee;
+import immo.entity.ImmoVue;
 import immo.entity.OpenPdfExporter;
 import immo.service.CategorieService;
 import immo.service.ImmoService;
@@ -39,6 +41,8 @@ public class MainController {
 	  
 	  @Autowired
 	    private ImmoService immoService;
+	  
+	
 	  
 	  @Autowired
 	    private ImmoVueService immoVueService;
@@ -120,17 +124,17 @@ public class MainController {
 	    }
 	        
 	        @RequestMapping(value="recherchemulti",method=RequestMethod.POST)
-	        public ModelAndView recherchemulti(@RequestParam("idcategorie") int idcategorie,
+	        public ModelAndView recherchemulti(@RequestParam("nomcategorie") String nomcategorie,
 	                @RequestParam("prixAchatMin") double prixAchatMin,@RequestParam("prixAchatMax") double prixAchatMax,@RequestParam("dateMiseEnServiceMin") String dateMiseEnServiceMin,
 	                @RequestParam("dateMiseEnServiceMax") String dateMiseEnServiceMax
 	        ,@RequestParam("dureeAmortissementMin") int dureeAmortissementMin,@RequestParam("dureeAmortissementMax") int dureeAmortissementMax
 	        ) throws Exception{
 	        	
 	        	 Immo a = immo.getInstanceImmo();
-	        	  Categorie c = new Categorie();
-	  	        c.setId(idcategorie);
+	        	//  Categorie c = new Categorie();
+	  	        //c.setId(idcategorie);
 	  	      
-	  	        a.setCategorie(c);
+	  	       // a.setCategorie(c);
 	  	        
 	       
 	          SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -146,10 +150,10 @@ public class MainController {
 	          Date dmax  = new java.sql.Date(sourceFormat.parse(dmsmax).getTime());
 	         // Date dmax = sourceFormat.parse(dmsmax);
 	          
-	         // List<Immo> lista = immoService.rechercheMulti(idcategorie, prixAchatMin, prixAchatMax, dmin, dmax, dureeAmortissementMin, dureeAmortissementMax);
+	         List<ImmoVue> lista = immoVueService.rechercheMulti(nomcategorie, prixAchatMin, prixAchatMax, dmin, dmax, dureeAmortissementMin, dureeAmortissementMax);
 	       
 	          ModelAndView v = new ModelAndView();
-	          List<Immo> lista = new ArrayList();
+	     
 
 	          v.addObject("resultats", lista);
 
@@ -265,16 +269,70 @@ public class MainController {
 	            ///get list code here
 	          
 	            response.setContentType("application/pdf");
-	            DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyy_HH:mm:ss");
-	            String currentDateTime = dateFormatter.format(new Date(0));
+	            
+	            long millis=System.currentTimeMillis();  
+	            java.sql.Date date=new java.sql.Date(millis);  
 
 	            String headerKey = "Content-Disposition";
-	            String headerValue = "inline; filename=immobilisations_" + currentDateTime + ".pdf";
+	            String headerValue = "inline; filename=immobilisations_"+annee+" " + date + ".pdf";  //nom fichier asiana anle annee
 	            response.setHeader(headerKey, headerValue);
 	             ;
 	            OpenPdfExporter exporter = new OpenPdfExporter(null,la);
 	            exporter.export1(response);
 	        }
+	        
+	        @RequestMapping(value= "init", method= RequestMethod.GET) 
+	        public ModelAndView paginate(@RequestParam("page_id") int page_id) {       
+	           
+	     
+	            Page<ImmoVue> p = immoVueService.findAllImmo(page_id);
+	            
+	     
+	            return new ModelAndView("listeImmo", "listeImmo", p.getContent());  
+	        
+	    }
+	        @RequestMapping(value = "tableau",method=RequestMethod.GET)
+	        public ModelAndView tableau(@RequestParam("id") String id) throws Exception {
+	        
+	       //    List<Immo> immo = adminService.findWithCriteriaById(immobilisation.getInstanceImmo(),"id",Integer.valueOf(id));
+	           
+	        	Optional<Immo> immo = immoService.findById( Long. parseLong(id));
+	        	ArrayList<Immo> result = new ArrayList<>();
+	        	immo.ifPresent(result::add);
+	            ModelAndView mv = new ModelAndView();
+	          
+	            List<Amortissement> ammos = immoService.ammortissement(result.get(0));
+	           
+	             mv.addObject("detailImmo", result);
+	        
+	            mv.addObject("ammos", ammos);
+	            mv.setViewName("tableau");
+	            return mv;
+	        }
 	  
+	        @RequestMapping(value="/pdf",method=RequestMethod.POST)
+	        public void exportToPdf(@RequestParam("id") String id, HttpServletResponse response) throws DocumentException, IOException, Exception {
+	        	Optional<Immo> immo = immoService.findById( Long. parseLong(id));
+	        	ArrayList<Immo> result = new ArrayList<>();
+	        	immo.ifPresent(result::add);
+	        	 List<Amortissement> ammos = immoService.ammortissement(result.get(0));
+	          
+	            response.setContentType("application/pdf");
+	            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+	            String currentDateTime = dateFormatter.format(new Date(0));
+	            
+	            long millis=System.currentTimeMillis();  
+	            java.sql.Date date=new java.sql.Date(millis);  
+	            
+	            String headerKey = "Content-Disposition";
+	            String headerValue = "inline; filename=immobilisations_" + date + ".pdf";
+	            response.setHeader(headerKey, headerValue);
+
+	            OpenPdfExporter exporter = new OpenPdfExporter(ammos);
+	            exporter.export(response);
+	            
+	            
+	                
+	        }
 
 }
